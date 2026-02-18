@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="32" height="32" rx="5" fill="#0d0d0d"/>
+
+  <!-- Subtle border glow -->
+  <rect x="0.75" y="0.75" width="30.5" height="30.5" rx="4.25"
+        fill="none" stroke="#39ff14" stroke-width="0.75" opacity="0.2"/>
+
+  <!-- >_ prompt with neon green glow -->
+  <text x="16" y="17.5"
+        dominant-baseline="central"
+        text-anchor="middle"
+        font-family="'Courier New', Courier, monospace"
+        font-size="13.5"
+        font-weight="700"
+        fill="#39ff14"
+        filter="url(#glow)">&#62;_</text>
+</svg>
