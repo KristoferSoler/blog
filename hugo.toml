@@ -10,9 +10,10 @@ enableGitInfo          = false
   pagerSize = 10
 
 [params]
-  description = "ideas, seguridad, técnica y algún writeup perdido por ahí."
-  github      = "tuusuario"
-  # twitter   = ""
+  description = "Code, Ideas, Thoughts, and Security"
+  github      = "KristoferSoler"
+  twitter     = "SolerKristofer"
+  linkedin  = "kristofersoler"
 
 [markup]
   [markup.highlight]
