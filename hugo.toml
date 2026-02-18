@@ -1,9 +1,9 @@
 baseURL      = "https://0x4d72.com/"
-languageCode = "es"
+languageCode = "en"
 title        = "0x4d72"
 theme        = "void"
 
-defaultContentLanguage = "es"
+defaultContentLanguage = "en"
 enableRobotsTXT        = true
 enableGitInfo          = false
 [pagination]
