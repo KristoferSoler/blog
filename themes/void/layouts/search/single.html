@@ -1,0 +1,32 @@
+{{ define "main" }}
+
+<section class="section-header">
+  <h1>search</h1>
+</section>
+
+<div id="search-container" data-pagefind-ignore>
+  <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+  <script src="/pagefind/pagefind-ui.js"></script>
+  <div id="pagefind-search"></div>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      new PagefindUI({
+        element: '#pagefind-search',
+        showSubResults: true,
+        showImages: false,
+        excerptLength: 25,
+        resetStyles: false,
+        translations: {
+          placeholder:  'search posts...',
+          zero_results: 'No results for [SEARCH_TERM]',
+        }
+      });
+    });
+  </script>
+</div>
+
+<noscript>
+  <p class="text-dim" style="margin-top:2rem;">Search requires JavaScript.</p>
+</noscript>
+
+{{ end }}

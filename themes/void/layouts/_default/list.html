@@ -1,0 +1,27 @@
+{{ define "main" }}
+
+<section class="section-header">
+  <h1>
+    {{ if .IsHome }}
+      posts
+    {{ else if or (eq .Kind "taxonomy") (eq .Kind "term") }}
+      #{{ .Title | lower }}
+    {{ else }}
+      {{ .Title }}
+    {{ end }}
+    <span class="section-count">{{ len .Pages }} posts</span>
+  </h1>
+  {{ with .Description }}
+    <p class="text-dim" style="margin-top:.5rem; font-size:.875rem;">{{ . }}</p>
+  {{ end }}
+</section>
+
+<div class="post-list">
+  {{ range .Pages }}
+    {{ partial "post-item.html" . }}
+  {{ end }}
+</div>
+
+{{ template "_internal/pagination.html" . }}
+
+{{ end }}

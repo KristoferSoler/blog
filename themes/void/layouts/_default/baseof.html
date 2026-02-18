@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode | default "en" }}">
+<head>
+  {{ partial "head.html" . }}
+</head>
+<body>
+  {{ partial "header.html" . }}
+  <main>
+    <div class="container">
+      {{ block "main" . }}{{ end }}
+    </div>
+  </main>
+  {{ partial "footer.html" . }}
+
+  {{/* ── Search modal ─────────────────────────────────────────────────── */}}
+  <div id="search-modal" class="s-modal" hidden aria-modal="true" role="dialog" aria-label="Search">
+    <div class="s-backdrop"></div>
+    <div class="s-panel">
+      <div class="s-termline" aria-hidden="true">
+        <span class="s-tl-user">{{ .Site.Title }}</span><span class="s-tl-at">@</span><span class="s-tl-host">blog</span><span class="s-tl-colon">:</span><span class="s-tl-path">~</span><span class="s-tl-dollar"> $</span>
+        <span class="s-tl-cmd"> grep -r</span>
+        <span class="s-tl-hint"><kbd class="s-kbd">esc</kbd></span>
+      </div>
+      <div id="s-pagefind"></div>
+      <div id="s-no-index" hidden>
+        <p>Search index not available.</p>
+        <p>Run <code>make build</code> to generate it.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ "js/main.js" | relURL }}"></script>
+</body>
+</html>

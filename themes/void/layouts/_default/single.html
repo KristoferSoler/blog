@@ -1,0 +1,57 @@
+{{ define "main" }}
+
+<div class="post-layout{{ if .TableOfContents }} post-layout--toc{{ end }}">
+
+  <article>
+    <header class="post-header">
+      <h1>{{ .Title }}</h1>
+      {{ $rt := .ReadingTime }}{{ $rtc := "rt-short" }}{{ if gt $rt 7 }}{{ $rtc = "rt-long" }}{{ else if gt $rt 3 }}{{ $rtc = "rt-medium" }}{{ end }}
+      <div class="post-meta">
+        <time class="post-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 02, 2006" }}</time>
+        <span class="sep">·</span>
+        <span class="{{ $rtc }}">{{ $rt }}min</span>
+        {{ with .Params.author }}
+          <span class="sep">·</span>
+          <span>{{ . }}</span>
+        {{ end }}
+        {{ if .Params.tags }}
+          <span class="sep">·</span>
+          <span>
+            {{ range .Params.tags }}
+              <a href="/tags/{{ . | urlize }}/" class="tag">#{{ . }}</a>
+            {{ end }}
+          </span>
+        {{ end }}
+      </div>
+    </header>
+
+    <div class="post-content" data-pagefind-body>
+      {{ .Content }}
+    </div>
+
+    <footer class="post-footer">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+        <a href="/posts/" class="tag">← all posts</a>
+        {{ if .Params.tags }}
+          <div style="display:flex; gap:.5rem; flex-wrap:wrap;">
+            {{ range .Params.tags }}
+              <a href="/tags/{{ . | urlize }}/" class="tag">#{{ . }}</a>
+            {{ end }}
+          </div>
+        {{ end }}
+      </div>
+    </footer>
+  </article>
+
+  {{ if .TableOfContents }}
+  <aside class="toc-sidebar" aria-label="Tabla de contenidos">
+    <div class="toc">
+      <p class="toc-title">// contenido</p>
+      {{ .TableOfContents }}
+    </div>
+  </aside>
+  {{ end }}
+
+</div>
+
+{{ end }}

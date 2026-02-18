@@ -1,0 +1,21 @@
+{{ $rt := .ReadingTime }}{{ $rtc := "rt-short" }}{{ if gt $rt 7 }}{{ $rtc = "rt-long" }}{{ else if gt $rt 3 }}{{ $rtc = "rt-medium" }}{{ end }}
+<article class="post-card{{ if .Params.pinned }} post-card--pinned{{ end }}">
+  <div class="pc-header">
+    <span class="pc-filename">{{ .File.ContentBaseName }}.md</span>
+    <span class="pc-meta">
+      <time class="pc-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 02, 2006" }}</time>
+      <span class="pc-sep">·</span>
+      <span class="{{ $rtc }}">{{ $rt }}min</span>
+      {{ if .Params.pinned }}<span class="pc-sep">·</span><span class="pc-pinned-badge">★ pinned</span>{{ end }}
+    </span>
+  </div>
+  <div class="pc-body">
+    <a href="{{ .Permalink }}" class="pc-title">{{ .Title }}</a>
+    {{ with .Summary }}<p class="pc-excerpt">{{ . | plainify | truncate 160 }}</p>{{ end }}
+  </div>
+  {{ if .Params.tags }}
+  <div class="pc-footer">
+    {{ range .Params.tags }}<a href="/tags/{{ . | urlize }}/" class="tag">#{{ . }}</a>{{ end }}
+  </div>
+  {{ end }}
+</article>

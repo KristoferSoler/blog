@@ -1,0 +1,15 @@
+{{ define "main" }}
+
+{{ $pinned := where .Pages ".Params.pinned" true }}
+{{ $rest   := where .Pages ".Params.pinned" "!=" true }}
+
+<section class="section-header">
+  <h1>posts <span class="section-count">{{ len .Pages }} posts</span></h1>
+</section>
+
+<div class="post-cards">
+  {{ range $pinned }}{{ partial "post-card.html" . }}{{ end }}
+  {{ range $rest   }}{{ partial "post-card.html" . }}{{ end }}
+</div>
+
+{{ end }}

@@ -1,0 +1,90 @@
+{{ define "main" }}
+
+{{ if eq .Kind "taxonomy" }}
+
+{{/* ── /tags/ — ls -al simulation ──────────────────────────────────────── */}}
+
+{{ $terms := .Data.Terms.Alphabetical }}
+{{ $total := mul (add (len $terms) 2) 8 }}
+{{ $now   := now.Format "Jan 02 2006" }}
+
+<section class="section-header">
+  <h1>tags <span class="section-count">{{ len $terms }} tags</span></h1>
+</section>
+
+<div class="terminal-window">
+  <div class="terminal-titlebar" aria-hidden="true">
+    <span class="terminal-dot dot-red"></span>
+    <span class="terminal-dot dot-yellow"></span>
+    <span class="terminal-dot dot-green"></span>
+    <span class="terminal-wintitle">{{ $.Site.Title }}@blog: ~/tags</span>
+  </div>
+  <div class="ls-body">
+
+    <div class="ls-prompt">
+      <span class="t-prompt">❯</span>
+      <span class="ls-cmd"> ls -al</span>
+    </div>
+
+    <div class="ls-output">
+      <p class="ls-total">total {{ $total }}</p>
+
+      {{/* . entry */}}
+      <div class="ls-row">
+        <span class="ls-perms">drwxr-xr-x</span>
+        <span class="ls-links">{{ add (len $terms) 2 }}</span>
+        <span class="ls-owner">{{ $.Site.Title }}</span>
+        <span class="ls-group">blog</span>
+        <span class="ls-size">{{ mul (add (len $terms) 2) 32 }}</span>
+        <span class="ls-date">{{ $now }}</span>
+        <a href="/tags/" class="ls-name ls-dir">.</a>
+      </div>
+
+      {{/* .. entry */}}
+      <div class="ls-row">
+        <span class="ls-perms">drwxr-xr-x</span>
+        <span class="ls-links">1</span>
+        <span class="ls-owner">{{ $.Site.Title }}</span>
+        <span class="ls-group">blog</span>
+        <span class="ls-size">32</span>
+        <span class="ls-date">{{ $now }}</span>
+        <a href="/" class="ls-name ls-dir">..</a>
+      </div>
+
+      {{/* tag entries */}}
+      {{ range $terms }}
+      <div class="ls-row">
+        <span class="ls-perms">drwxr-xr-x</span>
+        <span class="ls-links">{{ .Count }}</span>
+        <span class="ls-owner">{{ $.Site.Title }}</span>
+        <span class="ls-group">blog</span>
+        <span class="ls-size">{{ mul .Count 32 }}</span>
+        <span class="ls-date">{{ $now }}</span>
+        <a href="{{ .Page.Permalink }}" class="ls-name ls-dir">{{ .Page.Title | lower }}/</a>
+      </div>
+      {{ end }}
+    </div>
+
+    <div class="ls-prompt" style="margin-top:.5rem">
+      <span class="t-prompt">❯</span>
+      <span class="t-cursor"></span>
+    </div>
+
+  </div>
+</div>
+
+{{ else }}
+
+{{/* ── /tags/<term>/ — post list ──────────────────────────────────────── */}}
+
+<section class="section-header">
+  <h1>#{{ .Title | lower }} <span class="section-count">{{ len .Pages }} posts</span></h1>
+</section>
+
+<div class="post-cards">
+  {{ range .Pages }}{{ partial "post-card.html" . }}{{ end }}
+</div>
+
+{{ end }}
+
+{{ end }}

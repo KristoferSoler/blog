@@ -1,0 +1,43 @@
+{{ $difficulty := .Get "difficulty" | default "Medium" }}
+{{ $status     := .Get "status"     | default "in-progress" }}
+{{ $os         := .Get "os"         | default "Linux" }}
+<div class="htb-card">
+  <div class="htb-header">
+    <span class="htb-badge">HTB</span>
+    <span class="htb-name">{{ .Get "name" }}</span>
+    <span class="htb-difficulty htb-diff-{{ $difficulty | lower }}">{{ $difficulty }}</span>
+  </div>
+  <div class="htb-grid">
+    <div class="htb-stat">
+      <span class="htb-label">os</span>
+      <span class="htb-value">
+        {{ if eq $os "Linux" }}🐧{{ else if eq $os "Windows" }}🪟{{ else }}💻{{ end }}
+        {{ $os }}
+      </span>
+    </div>
+    <div class="htb-stat">
+      <span class="htb-label">ip</span>
+      <span class="htb-value htb-ip">{{ .Get "ip" | default "10.10.x.x" }}</span>
+    </div>
+    {{ with .Get "points" }}
+    <div class="htb-stat">
+      <span class="htb-label">points</span>
+      <span class="htb-value">{{ . }}</span>
+    </div>
+    {{ end }}
+    <div class="htb-stat">
+      <span class="htb-label">status</span>
+      <span class="htb-value htb-status-{{ $status }}">
+        {{ if eq $status "owned"       }}✓ owned
+        {{ else if eq $status "todo"   }}○ todo
+        {{ else                        }}◎ in progress
+        {{ end }}
+      </span>
+    </div>
+  </div>
+  {{ with .Get "release" }}
+  <div class="htb-footer">
+    <span class="htb-label">release</span> {{ . }}
+  </div>
+  {{ end }}
+</div>

@@ -1,0 +1,24 @@
+<article class="post-item">
+  <a href="{{ .Permalink }}" class="post-title-link">
+    {{ if .Params.pinned }}<span class="text-accent">★</span>{{ end }}
+    {{ .Title }}
+  </a>
+  {{ if .Summary }}
+    <p class="post-excerpt">{{ .Summary | plainify | truncate 140 }}</p>
+  {{ end }}
+  <div class="post-item-footer">
+    {{ if .Params.tags }}
+      <div class="post-tags">
+        {{ range .Params.tags }}
+          <a href="/tags/{{ . | urlize }}/" class="tag">#{{ . }}</a>
+        {{ end }}
+      </div>
+    {{ end }}
+    <div class="post-item-meta">
+      <time class="post-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 02, 2006" }}</time>
+      <span class="post-item-sep">·</span>
+      {{ $rt := .ReadingTime }}{{ $rtc := "rt-short" }}{{ if gt $rt 7 }}{{ $rtc = "rt-long" }}{{ else if gt $rt 3 }}{{ $rtc = "rt-medium" }}{{ end }}
+      <span class="post-readtime {{ $rtc }}">{{ $rt }}min</span>
+    </div>
+  </div>
+</article>
